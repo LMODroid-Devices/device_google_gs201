@@ -1,9 +1,10 @@
 [
   {
-    "repository": "android_device_google_gs101",
+    "repository": "LMODroid-Devices/device_google_gs101",
     "target_path": "device/google/gs101"
   },
   {
+    "remote": "lineage",
     "repository": "android_kernel_google_gs201",
     "target_path": "kernel/google/gs201/private/gs-google"
   }
