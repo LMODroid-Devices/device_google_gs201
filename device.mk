@@ -115,8 +115,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
 	persist.radio.reboot_on_modem_change=false
 
 # Configure DSDS by default
+ifneq ($(BOARD_WITHOUT_RADIO),true)
 PRODUCT_PRODUCT_PROPERTIES += \
 	persist.radio.multisim.config=dsds
+endif
 
 # Enable Early Camping
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -321,9 +323,6 @@ PRODUCT_COPY_FILES += \
 # For creating dtbo image
 PRODUCT_HOST_PACKAGES += \
 	mkdtimg
-
-PRODUCT_PACKAGES += \
-	messaging
 
 # Contexthub HAL
 PRODUCT_PACKAGES += \
@@ -626,7 +625,8 @@ PRODUCT_COPY_FILES += \
 
 ifneq ($(wildcard vendor/google/services/LyricCameraHAL/src),)
 PRODUCT_COPY_FILES += \
-	vendor/google/services/LyricCameraHAL/src/vendor.android.hardware.camera.preview-dis.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/vendor.android.hardware.camera.preview-dis.xml
+	vendor/google/services/LyricCameraHAL/src/vendor.android.hardware.camera.preview-dis.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/vendor.android.hardware.camera.preview-dis.xml\
+	vendor/google/services/LyricCameraHAL/src/vendor.android.hardware.camera.stream-usecase.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/vendor.android.hardware.camera.stream-usecase.xml
 endif
 
 #PRODUCT_COPY_FILES += \
@@ -710,7 +710,11 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += vendor.hwc.dpp.downscale=2
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.vendor.ddk.set.afbc=1
 
+ifeq ($(USE_TABLET_BT_COD),true)
+PRODUCT_CHARACTERISTICS := nosdcard,tablet
+else
 PRODUCT_CHARACTERISTICS := nosdcard
+endif
 
 # WIFI COEX
 PRODUCT_COPY_FILES += \
@@ -1079,11 +1083,19 @@ $(call soong_config_set,aoc,target_product,$(TARGET_PRODUCT))
 
 #
 ## Audio properties
+ifneq (,$(filter $(TANGOR_PRODUCT), $(TARGET_PRODUCT)))
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.config.vc_call_vol_steps=7 \
+	ro.config.media_vol_steps=20 \
+	ro.audio.monitorRotation = true \
+	ro.audio.offload_wakelock=false
+else
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.config.vc_call_vol_steps=7 \
 	ro.config.media_vol_steps=25 \
 	ro.audio.monitorRotation = true \
 	ro.audio.offload_wakelock=false
+endif
 
 # vndservicemanager and vndservice no longer included in API 30+, however needed by vendor code.
 # See b/148807371 for reference

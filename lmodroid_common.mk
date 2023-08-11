@@ -19,9 +19,8 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # Google Assistant
 PRODUCT_PRODUCT_PROPERTIES += ro.opa.eligible_device=true
 
-# EUICC
-PRODUCT_PACKAGES += \
-    EuiccSupportPixelOverlay
+# Lineage Health
+include hardware/google/pixel/lmodroid_health/device.mk
 
 # Parts
 PRODUCT_PACKAGES += \

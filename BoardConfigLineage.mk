@@ -8,7 +8,7 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := Image.lz4
-TARGET_KERNEL_CONFIG := cloudripper_gki_defconfig
+TARGET_KERNEL_CONFIG ?= cloudripper_gki_defconfig
 TARGET_KERNEL_SOURCE := kernel/google/gs201/private/gs-google
 TARGET_NEEDS_DTBOIMAGE := true
 
@@ -16,11 +16,16 @@ TARGET_NEEDS_DTBOIMAGE := true
 BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := device/google/gs201/vendor_dlkm.modules.blocklist
 TARGET_KERNEL_EXT_MODULE_ROOT := kernel/google/gs201/private/google-modules
 
+# Lineage Health
+TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_DEADLINE := true
+TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_TOGGLE := false
+
 # Manifests
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += vendor/lmodroid/config/device_framework_matrix.xml
-DEVICE_MANIFEST_FILE += \
-    device/google/gs201/android.hardware.security.rkp-service.citadel.xml \
-    device/google/gs201/manifest_radio_ds.xml
+DEVICE_MANIFEST_FILE += device/google/gs201/android.hardware.security.rkp-service.citadel.xml
+ifneq ($(BOARD_WITHOUT_RADIO),true)
+DEVICE_MANIFEST_FILE += device/google/gs201/manifest_radio_ds.xml
+endif
 
 # Partitions
 AB_OTA_PARTITIONS += \

@@ -27,19 +27,27 @@ PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
 # All components inherited here go to system_ext image
 #
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system_ext.mk)
+ifneq ($(BOARD_WITHOUT_RADIO),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
+endif
 
 #
 # All components inherited here go to product image
 #
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_product.mk)
+ifneq ($(BOARD_WITHOUT_RADIO),true)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_product.mk)
+endif
+$(call inherit-product, frameworks/base/data/sounds/AudioPackage14.mk)
 
 #
 # All components inherited here go to vendor image
 #
 # TODO(b/136525499): move *_vendor.mk into the vendor makefile later
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
+ifneq ($(BOARD_WITHOUT_RADIO),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
+endif
 
 #$(call inherit-product, device/google/gs201/device.mk)
 #$(call inherit-product-if-exists, vendor/google_devices/gs201/proprietary/device-vendor.mk)
