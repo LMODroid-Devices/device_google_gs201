@@ -20,7 +20,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_PRODUCT_PROPERTIES += ro.opa.eligible_device=true
 
 # Lineage Health
-include hardware/google/pixel/lmodroid_health/device.mk
+include hardware/google/pixel/lineage_health/device.mk
 
 # Parts
 PRODUCT_PACKAGES += \
