@@ -32,12 +32,6 @@ TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_VARIANT := cortex-a55
 TARGET_CPU_VARIANT_RUNTIME := cortex-a55
 
-# Enable 64-bit for non-zygote.
-ZYGOTE_FORCE_64 := true
-
-# Force any prefer32 targets to be compiled as 64 bit.
-FORCE_MULTILIB_FIRST_ON_DEVICE := true
-
 # Build the 32 bit targets
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-a
