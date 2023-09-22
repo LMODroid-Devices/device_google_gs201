@@ -17,7 +17,7 @@
 #
 # All components inherited here go to system image
 #
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_system.mk)
 
 # Enable CSI checking
@@ -49,7 +49,6 @@ ifneq ($(BOARD_WITHOUT_RADIO),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
 endif
 
-PRODUCT_VENDOR_PROPERTIES += dalvik.vm.dex2oat64.enabled=true
 #$(call inherit-product, device/google/gs201/device.mk)
 #$(call inherit-product-if-exists, vendor/google_devices/gs201/proprietary/device-vendor.mk)
 
