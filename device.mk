@@ -25,10 +25,10 @@ AB_OTA_POSTINSTALL_CONFIG += \
 POSTINSTALL_OPTIONAL_system=true
 
 # Set Vendor SPL to match platform
-VENDOR_SECURITY_PATCH = 2023-10-05
+VENDOR_SECURITY_PATCH = 2023-09-05
 
 # Set boot SPL
-BOOT_SECURITY_PATCH = 2023-10-05
+BOOT_SECURITY_PATCH = 2023-09-05
 
 # TODO(b/207450311): Remove this flag once implemented
 USE_PIXEL_GRALLOC := false
@@ -971,8 +971,7 @@ include device/google/gs201/gnss/device-gnss.mk
 endif
 BOARD_VENDOR_SEPOLICY_DIRS += device/google/gs201/sepolicy/gps
 
-PRODUCT_VENDOR_PROPERTIES += dalvik.vm.dex2oat64.enabled=true
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 #$(call inherit-product, hardware/google_devices/exynos5/exynos5.mk)
 #$(call inherit-product-if-exists, hardware/google_devices/gs201/gs201.mk)
 #$(call inherit-product-if-exists, vendor/google_devices/common/exynos-vendor.mk)
